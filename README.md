@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: justgoodin/pelican-build-deploy-anywhere@v0.1.4
+    - uses: justgoodin/pelican-to-github-pages@v1.0.1
       env:
         GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         GH_PAGES_CNAME: ${{secrets.DOMAIN_CNAME}}
