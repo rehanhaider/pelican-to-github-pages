@@ -31,6 +31,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+      with: 
+        submodules: 'true'
     - uses: rehanhaider/pelican-to-github-pages@v1.0.3
       env:
         GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
