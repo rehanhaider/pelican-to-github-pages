@@ -37,6 +37,5 @@ echo -n 'Files to Commit:' && ls -l | wc -l
 git commit -m "[ci skip] Automated deployment to GitHub Pages on $(date +%s%3N)"
 git push deploy $remote_branch --force
 rm -fr .git
-popd
 
 echo 'Successfully 🎉🕺💃 🎉 deployed to interwebs 🕸'
