@@ -8,19 +8,20 @@ branding:
 
 runs:
   using: 'docker'
-  image: 'Dockerfile'  
+  image: 'Dockerfile'
 
+# Each input can also be set as an `env:` variable of the same name, which wins.
 inputs:
   GH_PAGES_BRANCH:
-    description: 'override the default `gh-pages` deployment branch'
+    description: 'branch the built site is published to; must not be the branch the workflow runs on'
     required: false
     default: 'gh-pages'
   GH_PAGES_CNAME:
-    description: 'specify the custom domain configured for the output branch'
+    description: 'custom domain written to the CNAME file, e.g. `example.com`; leave unset for a `*.github.io` site'
     required: false
     default: none
   PELICAN_CONFIG_FILE:
-    description: 'override the default `pelicanconf.py` config file'
+    description: 'Pelican settings file, `publishconf.py` by default'
     required: false
     default: publishconf.py
   PELICAN_CONTENT_FOLDER:
@@ -28,5 +29,5 @@ inputs:
     required: false
     default: content
   PELICAN_THEME_FOLDER:
-    description: 'setup the theme folder with package.json file, is required if you need install node modules'
+    description: 'folder with a package.json where `npm install` runs before the build, if your theme needs node modules'
     required: false
