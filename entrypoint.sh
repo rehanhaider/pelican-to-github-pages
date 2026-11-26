@@ -19,13 +19,15 @@ if [ -n "$PELICAN_THEME_FOLDER" ]; then
 fi
 
 echo 'Building site 👷 '
-pelican ${PELICAN_CONTENT_FOLDER:=content} -s ${PELICAN_CONFIG_FILE:=publishconf.py}
+pelican ${PELICAN_CONTENT_FOLDER:=content} -o output -s ${PELICAN_CONFIG_FILE:=publishconf.py}
 
 echo "Setting Git safe directory (CVE-2022-24765)"
 echo "git config --global --add safe.directory ${GITHUB_WORKSPACE}"
 git config --global --add safe.directory "${GITHUB_WORKSPACE}"
 
 echo 'Publishing to GitHub Pages 📤 '
+echo 'change into output directory'
+pushd output
 git init
 git remote add deploy "$remote_repo"
 git checkout $remote_branch || git checkout --orphan $remote_branch
@@ -41,5 +43,7 @@ echo -n 'Files to Commit:' && ls -l | wc -l
 git commit -m "[ci skip] Automated deployment to GitHub Pages on $(date +%s%3N)"
 git push deploy $remote_branch --force
 rm -fr .git
+echo 'leave output directory'
+popd
 
 echo 'Successfully 🎉🕺💃 🎉 deployed to interwebs 🕸'

@@ -1,6 +1,6 @@
 # Deploy Pelican to Github Pages
 
-Automated deployment of Pelican SSG generated static websites to GitHub Pages. 
+Automated deployment of Pelican SSG generated static websites to GitHub Pages.
 
 GitHub Pages can serve webpages from three predefined places
 1. **main/root**: The root folder of the main branch
@@ -8,7 +8,7 @@ GitHub Pages can serve webpages from three predefined places
 2. **gh-pages/root**: The root folder of any branch named "gh-pages"
 
 ## Prerequisites
-1. Your working directory should be in the `main` branch of your repository. 
+1. Your working directory should be in the `main` branch of your repository.
 2. Ensure you have captured your dependencies in `requirements.txt`. If not you can run the below command
 ```bash
 pip freeze > requirements.txt
@@ -16,7 +16,7 @@ pip freeze > requirements.txt
 
 ## Steps to use
 First create a file named at the path `.github/.workflows/pelican.yml`
-The conents of the file should be 
+The conents of the file should be
 ```yaml
 name: Deploy
 
@@ -26,14 +26,17 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-      with: 
+    - uses: actions/checkout@v4
+      with:
         submodules: 'true'
-    - uses: rehanhaider/pelican-to-github-pages@v1.0.3
+    - uses: rehanhaider/pelican-to-github-pages@v1.3.0
       env:
         GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         GH_PAGES_CNAME: ${{secrets.DOMAIN_CNAME}}
